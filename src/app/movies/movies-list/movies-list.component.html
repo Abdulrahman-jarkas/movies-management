@@ -1,1 +1,21 @@
-<p>movies-list works!</p>
+<categories-selectors></categories-selectors>
+<div class="movies">
+  <mat-card *ngFor="let movie of movies$ | async" class="example-card">
+    <mat-card-header>
+      <mat-card-title>
+        <a routerLink="../edit-movie/{{ movie.id }}" class="name">{{
+          movie.name
+        }}</a></mat-card-title
+      >
+    </mat-card-header>
+    <img
+      mat-card-image
+      class="movie-image"
+      [src]="movie.image"
+      [alt]="movie.name"
+    />
+    <mat-card-content>
+      <p class="desc">{{ movie.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

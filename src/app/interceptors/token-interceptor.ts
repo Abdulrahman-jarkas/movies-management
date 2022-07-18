@@ -22,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const token = this.authService.token;
     const isLoggedIn = token;
-    const isApiUrl = req.url.startsWith(environment.apiUrl);
+    const isApiUrl = req.url.startsWith(environment.domain);
 
     if (isLoggedIn && isApiUrl)
       req = req.clone({
@@ -31,7 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError((even: HttpErrorResponse) => {
-        if (even.error?.statusCode === 401) {
+        if (even.status === 401) {
           this.authService.logout();
           this.router.navigate(['/auth']);
         }

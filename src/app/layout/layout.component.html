@@ -1,3 +1,8 @@
+<mat-progress-bar
+  *ngIf="loader$ | async"
+  mode="indeterminate"
+></mat-progress-bar>
+
 <mat-toolbar color="primary">
   <span routerLink="../">Movies Management</span>
   <span class="example-spacer"></span>

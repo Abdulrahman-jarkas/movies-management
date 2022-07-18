@@ -11,17 +11,25 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { StateSerivce } from '../shared/helper/state';
+import { CategoriesSelectorsComponent } from './categories-selectors/categories-selectors.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const MATERIAL = [
   MatCardModule,
   MatProgressBarModule,
   MatFormFieldModule,
   MatButtonModule,
-  MatInputModule
+  MatInputModule,
+  MatSelectModule,
 ];
 @NgModule({
-  declarations: [MoviesListComponent, MovieDetailsComponent],
+  declarations: [
+    MoviesListComponent,
+    MovieDetailsComponent,
+    CategoriesSelectorsComponent,
+  ],
   imports: [CommonModule, ...MATERIAL, MoviesRoutingModule],
-  providers: [MoviesService],
+  providers: [MoviesService, StateSerivce],
 })
 export class MoviesModule {}

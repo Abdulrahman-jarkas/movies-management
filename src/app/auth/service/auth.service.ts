@@ -18,7 +18,10 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<AuthResponse>(environment.apiUrl + '/login', { email, password })
+      .post<AuthResponse>(environment.domain + '/api/login', {
+        email,
+        password,
+      })
       .pipe(tap((res) => this.storeToken(res?.authorisation?.token)));
   }
 
@@ -29,7 +32,7 @@ export class AuthService {
 
   register(name: string, email: string, password: string) {
     return this.http
-      .post<AuthResponse>(environment.apiUrl + '/register', {
+      .post<AuthResponse>(environment.domain + '/api/register', {
         name,
         email,
         password,
