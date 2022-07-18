@@ -7,9 +7,14 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'movies',
+    path: 'movies-management',
     loadChildren: () =>
       import('./movies/movies.module').then((m) => m.MoviesModule),
+  },
+  {
+    path: '',
+    redirectTo: 'movies-management',
+    pathMatch: 'full',
   },
 ];
 
