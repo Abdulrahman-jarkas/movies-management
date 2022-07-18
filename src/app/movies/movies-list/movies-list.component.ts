@@ -38,4 +38,12 @@ export class MoviesListComponent
       )
     );
   }
+
+  populateMovieByCategory(catId: number) {
+    console.log(catId);
+    return this.moviesSerive
+      .getMoviesByCategory(catId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
+  }
 }

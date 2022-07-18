@@ -1,4 +1,6 @@
-<categories-selectors></categories-selectors>
+<categories-selectors
+  (onSelect)="populateMovieByCategory($event)"
+></categories-selectors>
 <div class="movies">
   <mat-card *ngFor="let movie of movies$ | async" class="example-card">
     <mat-card-header>

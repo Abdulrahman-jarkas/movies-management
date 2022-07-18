@@ -7,10 +7,10 @@ import { addToState, deleteFromState } from './state-helper';
 export class StateSerivce<T extends { id: number }> {
   api!: string;
 
-  private dataSubject = new BehaviorSubject<T[]>([]);
+  dataSubject = new BehaviorSubject<T[]>([]);
   data$: Observable<T[]> = this.dataSubject.asObservable();
 
-  private selectedItemSubject = new BehaviorSubject<T | null>(null);
+  selectedItemSubject = new BehaviorSubject<T | null>(null);
   selectedItem$: Observable<T | null> = this.selectedItemSubject.asObservable();
 
   constructor(public http: HttpClient) {}
