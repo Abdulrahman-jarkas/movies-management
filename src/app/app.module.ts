@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
+import { httpInterceptorProviders } from './interceptors';
 
 // materila
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,7 +24,7 @@ const MATERIAL = [MatToolbarModule, MatIconModule, MatButtonModule];
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
