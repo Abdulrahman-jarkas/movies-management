@@ -1,16 +1,61 @@
 <h2>Register</h2>
+
+<!-- @TODO -->
+<pre *ngIf="error" class="error">{{ error | json }}</pre>
+
 <form #form="ngForm">
+  <!-- Name Input -->
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input name="name" ngModel #name="ngModel" matInput type="name" required />
+    <mat-error *ngIf="name?.errors?.['required']"
+      >this field is required</mat-error
+    >
+  </mat-form-field>
+
+  <!-- Email Input -->
   <mat-form-field appearance="outline">
     <mat-label>Email</mat-label>
-    <input matInput />
+    <input
+      name="email"
+      ngModel
+      #email="ngModel"
+      matInput
+      type="email"
+      required
+      email
+    />
+    <mat-error *ngIf="email?.errors?.['required']"
+      >this field is required</mat-error
+    >
+    <mat-error *ngIf="email?.errors?.['email']">invalid email</mat-error>
   </mat-form-field>
+
+  <!-- Password Input -->
   <mat-form-field appearance="outline">
     <mat-label>Password</mat-label>
-    <input matInput />
+    <input
+      name="password"
+      ngModel
+      #password="ngModel"
+      matInput
+      type="password"
+      required
+    />
+    <mat-error *ngIf="password?.errors?.['required']"
+      >this field is required</mat-error
+    >
   </mat-form-field>
 
   <div class="actions">
-    <button mat-raised-button color="primary">Register</button>
-    <a routerLink="./register">you have account ?</a>
+    <button
+      [disabled]="form.invalid"
+      mat-raised-button
+      color="primary"
+      (click)="register(form.value)"
+    >
+      Register
+    </button>
+    <a routerLink="../login">do you have an accout?</a>
   </div>
 </form>

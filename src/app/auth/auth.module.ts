@@ -18,7 +18,7 @@ const MATERIAL = [
   MatProgressBarModule,
   MatFormFieldModule,
   MatButtonModule,
-  MatInputModule
+  MatInputModule,
 ];
 
 @NgModule({

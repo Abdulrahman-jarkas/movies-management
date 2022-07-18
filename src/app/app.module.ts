@@ -12,11 +12,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { ClearSubscriptionsComponent } from './shared/components/clear-subscriptions/clear-subscriptions.component';
 
 const MATERIAL = [MatToolbarModule, MatIconModule, MatButtonModule];
 
 @NgModule({
-  declarations: [AppComponent, LayoutComponent],
+  declarations: [AppComponent, LayoutComponent, ClearSubscriptionsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -4,15 +4,14 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable, throwError } from "rxjs";
-import { catchError, retry } from "rxjs/operators";
-import { ErrorService } from "../shared/services/error.service";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorHandlingInterceptor implements HttpInterceptor {
-  constructor(private errorService: ErrorService) {}
+  constructor() {}
 
   intercept(
     req: HttpRequest<any>,
@@ -21,8 +20,7 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       retry(2),
       catchError((even: HttpErrorResponse) => {
-        this.errorService.setError(even.error.error);
-        return throwError(even.error);
+        throw new Error(even.error);
       })
     );
   }

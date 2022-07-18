@@ -4,13 +4,13 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-} from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
-import { baseUrlWithoutV } from "src/config/api";
-import { AuthService } from "../shared/services/auth.service";
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth/service/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -20,9 +20,9 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = this.authService.getToken();
+    const token = this.authService.token;
     const isLoggedIn = token;
-    const isApiUrl = req.url.startsWith(baseUrlWithoutV);
+    const isApiUrl = req.url.startsWith(environment.apiUrl);
 
     if (isLoggedIn && isApiUrl)
       req = req.clone({
@@ -32,10 +32,10 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((even: HttpErrorResponse) => {
         if (even.error?.statusCode === 401) {
-          this.authService.logout()
-          this.router.navigate(["/auth"]);
+          this.authService.logout();
+          this.router.navigate(['/auth']);
         }
-        return throwError(even.error);
+        throw new Error(even.error);
       })
     );
   }

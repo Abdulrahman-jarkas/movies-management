@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+interface AuthResponse {
+  authorisation: { token: string };
+  status: 'success' | 'failed';
+  message?: any;
+  user?: any;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,11 +18,8 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post<{ authorisation: { token: string } }>(
-        environment.apiUrl + '/login',
-        { email, password }
-      )
-      .pipe(tap((res) => this.storeToken(res.authorisation.token)));
+      .post<AuthResponse>(environment.apiUrl + '/login', { email, password })
+      .pipe(tap((res) => this.storeToken(res?.authorisation?.token)));
   }
 
   logout() {
@@ -25,22 +29,23 @@ export class AuthService {
 
   register(name: string, email: string, password: string) {
     return this.http
-      .post<{ authorisation: { token: string } }>(
-        environment.apiUrl + '/register',
-        {
-          name,
-          email,
-          password,
-        }
-      )
-      .pipe(tap((res) => this.storeToken(res.authorisation.token)));
+      .post<AuthResponse>(environment.apiUrl + '/register', {
+        name,
+        email,
+        password,
+      })
+      .pipe(tap((res) => this.storeToken(res?.authorisation?.token)));
   }
 
   get isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.token;
+  }
+
+  get token() {
+    return localStorage.getItem('token');
   }
 
   storeToken(token: string) {
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', token ?? null);
   }
 }
