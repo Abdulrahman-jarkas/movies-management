@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { ClearSubscriptionsComponent } from 'src/app/shared/components/clear-subscriptions/clear-subscriptions.component';
 import { AuthService } from '../service/auth.service';
@@ -11,7 +12,7 @@ import { AuthService } from '../service/auth.service';
 export class LoginComponent extends ClearSubscriptionsComponent {
   error: any;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     super();
   }
 
@@ -19,6 +20,8 @@ export class LoginComponent extends ClearSubscriptionsComponent {
     this.authService
       .login(form.email, form.password)
       .pipe(takeUntil(this.destroy$))
-      .subscribe();
+      .subscribe((res) => {
+        if ((res.status = 'success')) this.router.navigateByUrl('');
+      });
   }
 }
