@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://test-api.storexweb.com/api',
+  apiUrl: 'https://test-api.storexweb.com/api',
 };
 
 /*

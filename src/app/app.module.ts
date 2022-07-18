@@ -10,6 +10,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
 
 const MATERIAL = [MatToolbarModule, MatIconModule, MatButtonModule];
 
@@ -20,6 +21,7 @@ const MATERIAL = [MatToolbarModule, MatIconModule, MatButtonModule];
     AppRoutingModule,
     ...MATERIAL,
     BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -2,11 +2,12 @@
   <span routerLink="../">Movies Management</span>
   <span class="example-spacer"></span>
   <button
-    mat-icon-button
+    (click)="authSerive.logout()"
+    mat-flat-button
+    color="accent"
     class="example-icon"
-    aria-label="Example icon-button with menu icon"
   >
-    <mat-icon>menu</mat-icon>
+    Logout
   </button>
 </mat-toolbar>
 
