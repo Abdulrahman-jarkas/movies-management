@@ -1,1 +1,16 @@
-<p>login works!</p>
+<h2>Login</h2>
+<form #form="ngForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-raised-button color="primary">Login</button>
+    <a routerLink="./register">Create New Account</a>
+  </div>
+</form>

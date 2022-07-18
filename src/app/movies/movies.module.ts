@@ -5,10 +5,23 @@ import { MoviesRoutingModule } from './movies-routing.module';
 import { MoviesListComponent } from './movies-list/movies-list.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MoviesService } from './service/movies.service';
+// material
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
+const MATERIAL = [
+  MatCardModule,
+  MatProgressBarModule,
+  MatFormFieldModule,
+  MatButtonModule,
+  MatInputModule
+];
 @NgModule({
   declarations: [MoviesListComponent, MovieDetailsComponent],
-  imports: [CommonModule, MoviesRoutingModule],
+  imports: [CommonModule, ...MATERIAL, MoviesRoutingModule],
   providers: [MoviesService],
 })
 export class MoviesModule {}

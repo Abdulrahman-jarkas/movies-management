@@ -1,20 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'movies-management',
+        loadChildren: () =>
+          import('./movies/movies.module').then((m) => m.MoviesModule),
+      },
+      {
+        path: '',
+        redirectTo: 'movies-management',
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  },
-  {
-    path: 'movies-management',
-    loadChildren: () =>
-      import('./movies/movies.module').then((m) => m.MoviesModule),
-  },
-  {
-    path: '',
-    redirectTo: 'movies-management',
-    pathMatch: 'full',
   },
 ];
 
