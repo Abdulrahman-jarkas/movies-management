@@ -55,13 +55,11 @@ export class MovieDetailsComponent
   }
 
   getMovie(id: number) {
-    console.log(id);
     this.movieSerive
       .getBy(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         this.movie = { ...res };
-        // , image: `${environment.domain}/${res.image}`
       });
   }
 

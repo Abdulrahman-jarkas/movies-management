@@ -46,7 +46,6 @@ export class MoviesListComponent
   }
 
   populateMovieByCategory(catId: string) {
-    console.log(catId);
     return this.moviesSerive
       .getMoviesByCategory(parseInt(catId))
       .pipe(takeUntil(this.destroy$))

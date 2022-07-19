@@ -11,6 +11,5 @@ export class ClearSubscriptionsComponent implements OnDestroy {
   ngOnDestroy() {
     this.destroy$.next('');
     this.destroy$.complete();
-    console.log('destroy component');
   }
 }
