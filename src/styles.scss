@@ -13,8 +13,9 @@ mat-form-field {
   width: 100%;
 }
 
-.error{
+.error {
   color: white;
-  padding: .5rem 1rem;
+  padding: 0.2rem;
+  margin-block: 0.5rem;
   background-color: tomato;
 }
