@@ -39,6 +39,12 @@ export class MoviesListComponent
     );
   }
 
+  deleteMovie(id: number) {
+    const res = confirm('are you want to delete this movie?');
+    if (!res) return;
+    this.moviesSerive.delete(id).pipe(takeUntil(this.destroy$)).subscribe();
+  }
+
   populateMovieByCategory(catId: number) {
     console.log(catId);
     return this.moviesSerive

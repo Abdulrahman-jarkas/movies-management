@@ -26,20 +26,4 @@ export class MoviesService extends StateSerivce<MovieModel & { id: number }> {
         })
       );
   }
-
-  // override add(payload: Omit<MovieModel & { id: number }, 'id'>) {
-  //   const formData = new FormData();
-
-  //   formData.append('name', payload.name);
-  //   formData.append('image', payload?.image);
-  //   formData.append('description', payload.description);
-  //   formData.append('category_id', payload.category_id);
-
-  //   return this.http.post<{
-  //     message: MovieModel & { id: number };
-  //     status: 'success' | 'failed';
-  //   }>(this.api, formatDate).pipe(tap(res => {
-  //     const newState = addToState<MovieModel>()
-  //   }));
-  // }
 }
