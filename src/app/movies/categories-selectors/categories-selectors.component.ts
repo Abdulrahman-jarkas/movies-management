@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, takeUntil } from 'rxjs';
 import { ClearSubscriptionsComponent } from 'src/app/shared/components/clear-subscriptions/clear-subscriptions.component';
 import { CategoryModel } from '../models/categorie.model';
@@ -15,7 +15,8 @@ export class CategoriesSelectorsComponent
 {
   categories$!: Observable<CategoryModel[]>;
 
-  @Output() onSelect = new EventEmitter<number>();
+  @Input() category!:string;
+  @Output() categoryChange = new EventEmitter<string>();
 
   constructor(private categoriesService: CategoriesService) {
     super();
@@ -35,6 +36,6 @@ export class CategoriesSelectorsComponent
   }
 
   onChange(event: any) {
-    this.onSelect.emit(event.value);
+    this.categoryChange.emit(event.value);
   }
 }

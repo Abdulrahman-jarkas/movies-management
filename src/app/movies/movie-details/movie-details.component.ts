@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, takeUntil } from 'rxjs';
 import { ClearSubscriptionsComponent } from 'src/app/shared/components/clear-subscriptions/clear-subscriptions.component';
+import { environment } from 'src/environments/environment';
 import { MovieModel } from '../models/movie';
 import { MoviesService } from '../service/movies.service';
 
@@ -50,11 +51,6 @@ export class MovieDetailsComponent
     reader.onload = (e) => (this.imageSrc = reader.result);
     reader.readAsDataURL(file);
 
-    // // Create form data
-    // const formData = new FormData();
-    // // Store form name as "file" with file data
-    // formData.append("file", file, file.name);
-
     this.movie.image = file;
   }
 
@@ -64,17 +60,19 @@ export class MovieDetailsComponent
       .getBy(id)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        this.movie = res;
+        this.movie = { ...res };
+        // , image: `${environment.domain}/${res.image}`
       });
   }
 
   submit() {
-    console.log(this.movie);
     const { id, ...rest } = this.movie;
     const obs$ = this.movie?.id
       ? this.movieSerive.edit({ ...this.movie } as MovieModel & { id: number })
       : this.movieSerive.add({ ...rest });
 
-    obs$.pipe(takeUntil(this.destroy$)).subscribe();
+    obs$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.router.navigate(['../']));
   }
 }

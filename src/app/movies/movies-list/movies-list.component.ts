@@ -45,10 +45,10 @@ export class MoviesListComponent
     this.moviesSerive.delete(id).pipe(takeUntil(this.destroy$)).subscribe();
   }
 
-  populateMovieByCategory(catId: number) {
+  populateMovieByCategory(catId: string) {
     console.log(catId);
     return this.moviesSerive
-      .getMoviesByCategory(catId)
+      .getMoviesByCategory(parseInt(catId))
       .pipe(takeUntil(this.destroy$))
       .subscribe();
   }

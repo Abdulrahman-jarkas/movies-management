@@ -53,8 +53,8 @@ export class StateSerivce<T extends { id: number }> {
   edit(payload: T) {
     return this.http
       .post<{ message: T & { id: number }; status: 'success' | 'failed' }>(
-        this.api,
-        this.prepareData(payload)
+        this.api + '/' + payload.id,
+        this.prepareData({ ...payload, _method: 'put' })
       )
       .pipe(
         tap((res) => {
@@ -86,11 +86,11 @@ export class StateSerivce<T extends { id: number }> {
       );
   }
 
-  prepareData(data: Omit<T,'id'>) {
+  prepareData(data: Omit<T, 'id'>) {
     const formData = new FormData();
     for (const [key, value] of Object.entries(data)) {
       formData.append(key, value as any);
     }
-    return formData
+    return formData;
   }
 }

@@ -1,25 +1,30 @@
-<form>
+<form #form="ngForm">
   <div>
-    <input (change)="setImage($event)" #uploadFile type="file" hidden />
-    <label for="image">Upload Image</label>
-    <div class="image-wrapper">
-      <img
-        [src]="imageSrc || movie?.image"
-        [alt]="movie.name"
-        *ngIf="imageSrc || movie?.image; else uploadNewImageTemp"
-        class="movie-image"
-      />
-    </div>
-    <ng-template #uploadNewImageTemp>
-      <a class="upload image-wrapper" (click)="uploadFile.click()">
-        <mat-icon>add</mat-icon>
-      </a>
-    </ng-template>
+    <input
+      (change)="setImage($event)"
+      type="file"
+      name="image"
+      #image="ngModel"
+      ngModel
+      required
+    />
+    <mat-error *ngIf="image?.errors?.['required']"
+      >this field is required</mat-error
+    >
   </div>
 
   <mat-form-field appearance="outline">
     <mat-label>Name</mat-label>
-    <input matInput #name="ngModel" name="name" [(ngModel)]="movie.name" />
+    <input
+      matInput
+      #name="ngModel"
+      name="name"
+      [(ngModel)]="movie.name"
+      required
+    />
+    <mat-error *ngIf="name?.errors?.['required']"
+      >this field is required</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -29,12 +34,22 @@
       #description="ngModel"
       name="description"
       [(ngModel)]="movie.description"
+      required
     ></textarea>
+    <mat-error *ngIf="description?.errors?.['required']"
+      >this field is required</mat-error
+    >
   </mat-form-field>
 
-  <categories-selectors
-    (onSelect)="setCategoryId($event)"
-  ></categories-selectors>
+  <!-- @TODO: use custom form control -->
+  <categories-selectors [(category)]="movie.category_id"></categories-selectors>
 
-  <button mat-raised-button color="primary" (click)="submit()">Save</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="form.invalid"
+    (click)="submit()"
+  >
+    Save
+  </button>
 </form>
