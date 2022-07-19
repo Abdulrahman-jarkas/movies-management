@@ -26,7 +26,7 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
           this.authService.logout();
           this.router.navigate(['/auth']);
         }
-        throw new Error(even.error);
+        throw even;
       })
     );
   }

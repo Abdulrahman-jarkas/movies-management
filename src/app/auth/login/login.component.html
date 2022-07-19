@@ -42,12 +42,7 @@
   </mat-form-field>
 
   <div class="actions">
-    <button
-      [disabled]="form.invalid"
-      mat-raised-button
-      color="primary"
-      (click)="login(form.value)"
-    >
+    <button mat-raised-button color="primary" (click)="login(form.value)">
       Login
     </button>
     <a routerLink="../register">Create New Account</a>

@@ -22,12 +22,13 @@ export class RegisterComponent extends ClearSubscriptionsComponent {
       .pipe(
         takeUntil(this.destroy$),
         catchError((err) => {
-          return of({ status: 'failed', message: 'something failed' });
+          return of({
+            status: 'failed',
+            message: err.error.message ? err.error.message : 'something failed',
+          });
         })
       )
       .subscribe((res) => {
-        console.log(res);
-
         if (res.status === 'success') {
           this.router.navigateByUrl('');
           return;
