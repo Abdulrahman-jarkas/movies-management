@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, shareReplay, tap } from 'rxjs';
 import { addToState, deleteFromState, updateState } from './state-helper';
 
 @Injectable()
@@ -8,10 +8,10 @@ export class StateSerivce<T extends { id: number }> {
   api!: string;
 
   dataSubject = new BehaviorSubject<T[]>([]);
-  data$: Observable<T[]> = this.dataSubject.asObservable();
+  data$: Observable<T[]> = this.dataSubject.asObservable().pipe(shareReplay(2));
 
   selectedItemSubject = new BehaviorSubject<T | null>(null);
-  selectedItem$: Observable<T | null> = this.selectedItemSubject.asObservable();
+  selectedItem$: Observable<T | null> = this.selectedItemSubject.asObservable().pipe(shareReplay(2));
 
   constructor(public http: HttpClient) {}
 

@@ -1,6 +1,10 @@
 <h2>Login</h2>
-<!-- @TODO -->
-<pre *ngIf="error" class="error">{{ error | json }}</pre>
+
+<div class="error" *ngIf="errors.length > 0">
+  <ul>
+    <li *ngFor="let error of errors">{{ error }}</li>
+  </ul>
+</div>
 
 <form #form="ngForm">
   <!-- Email Input -->

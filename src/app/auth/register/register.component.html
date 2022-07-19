@@ -1,7 +1,10 @@
 <h2>Register</h2>
 
-<!-- @TODO -->
-<pre *ngIf="error" class="error">{{ error | json }}</pre>
+<div class="error" *ngIf="errors.length > 0">
+  <ul>
+    <li *ngFor="let error of errors">{{ error }}</li>
+  </ul>
+</div>
 
 <form #form="ngForm">
   <!-- Name Input -->
@@ -48,12 +51,7 @@
   </mat-form-field>
 
   <div class="actions">
-    <button
-      [disabled]="form.invalid"
-      mat-raised-button
-      color="primary"
-      (click)="register(form.value)"
-    >
+    <button mat-raised-button color="primary" (click)="register(form.value)">
       Register
     </button>
     <a routerLink="../login">do you have an accout?</a>
