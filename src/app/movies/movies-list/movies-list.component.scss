@@ -8,3 +8,13 @@
   height: 150px;
   object-fit: cover;
 }
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.categories {
+  flex-grow: 2;
+}

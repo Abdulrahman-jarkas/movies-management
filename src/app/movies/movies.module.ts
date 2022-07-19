@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { StateSerivce } from '../shared/helper/state';
 import { CategoriesSelectorsComponent } from './categories-selectors/categories-selectors.component';
 import { MatSelectModule } from '@angular/material/select';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 const MATERIAL = [
   MatCardModule,
@@ -22,6 +24,7 @@ const MATERIAL = [
   MatButtonModule,
   MatInputModule,
   MatSelectModule,
+  MatIconModule
 ];
 @NgModule({
   declarations: [
@@ -29,7 +32,7 @@ const MATERIAL = [
     MovieDetailsComponent,
     CategoriesSelectorsComponent,
   ],
-  imports: [CommonModule, ...MATERIAL, MoviesRoutingModule],
+  imports: [CommonModule, ...MATERIAL, MoviesRoutingModule, FormsModule],
   providers: [MoviesService, StateSerivce],
 })
 export class MoviesModule {}

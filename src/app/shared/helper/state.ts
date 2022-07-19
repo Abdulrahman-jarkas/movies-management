@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
-import { addToState, deleteFromState } from './state-helper';
+import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
+import { addToState, deleteFromState, updateState } from './state-helper';
 
 @Injectable()
 export class StateSerivce<T extends { id: number }> {
@@ -23,25 +23,26 @@ export class StateSerivce<T extends { id: number }> {
   }
 
   getBy(id: number) {
-    const data = this.dataSubject.value.find((item) => item.id === id);
-    if (data) return data;
+    const data = this.dataSubject.value.find((item) => item?.id === id);
+    if (data) return of(data);
 
     return this.http
       .get<{ message: T; status: 'success' | 'failed' }>(this.api + '/' + id)
       .pipe(map((res) => res.message));
   }
 
-  add(payload: T) {
+  add(payload: Omit<T, 'id'>) {
     return this.http
-      .post<{ message: T; status: 'success' | 'failed' }>(this.api, {
-        payload,
-      })
+      .post<{ message: T & { id: number }; status: 'success' | 'failed' }>(
+        this.api,
+        this.prepareData(payload)
+      )
       .pipe(
         tap((res) => {
           if (res.status === 'success') {
             const newState = addToState<T>(this.dataSubject.value, {
               ...payload,
-              id: res.message.id,
+              ...res.message,
             });
             this.dataSubject.next([...newState]);
           }
@@ -51,16 +52,21 @@ export class StateSerivce<T extends { id: number }> {
 
   edit(payload: T) {
     return this.http
-      .post<{ message: T; status: 'success' | 'failed' }>(this.api, {
-        payload,
-      })
+      .post<{ message: T & { id: number }; status: 'success' | 'failed' }>(
+        this.api,
+        this.prepareData(payload)
+      )
       .pipe(
         tap((res) => {
           if (res.status === 'success') {
-            const newState = addToState<T>(this.dataSubject.value, {
-              ...payload,
-              id: res.message.id,
-            });
+            const newState = updateState<T>(
+              this.dataSubject.value,
+              payload.id,
+              {
+                ...payload,
+                ...res.message,
+              }
+            );
             this.dataSubject.next([...newState]);
           }
         })
@@ -78,5 +84,13 @@ export class StateSerivce<T extends { id: number }> {
           }
         })
       );
+  }
+
+  prepareData(data: Omit<T,'id'>) {
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(data)) {
+      formData.append(key, value as any);
+    }
+    return formData
   }
 }

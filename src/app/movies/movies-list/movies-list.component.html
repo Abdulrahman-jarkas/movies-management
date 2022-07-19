@@ -1,6 +1,13 @@
-<categories-selectors
-  (onSelect)="populateMovieByCategory($event)"
-></categories-selectors>
+<div class="header">
+  <categories-selectors
+    class="categories"
+    (onSelect)="populateMovieByCategory($event)"
+  ></categories-selectors>
+
+  <button mat-raised-button color="primary" routerLink="../add-movie">
+    Create New Movie
+  </button>
+</div>
 <div class="movies">
   <mat-card *ngFor="let movie of movies$ | async" class="example-card">
     <mat-card-header>

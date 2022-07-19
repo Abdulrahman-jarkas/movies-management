@@ -1,0 +1,20 @@
+.movie-image {
+  object-fit: cover;
+}
+
+.upload {
+  background-color: lightgrey;
+
+  cursor: pointer;
+
+  mat-icon {
+    margin: auto;
+  }
+}
+
+.image-wrapper {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  margin: auto;
+}

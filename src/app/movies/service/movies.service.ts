@@ -4,8 +4,9 @@ import { StateSerivce } from 'src/app/shared/helper/state';
 import { MovieModel } from '../models/movie';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs';
+
 @Injectable()
-export class MoviesService extends StateSerivce<MovieModel> {
+export class MoviesService extends StateSerivce<MovieModel & { id: number }> {
   override api = environment.domain + '/api/movies';
   apiMoviesByCategory = environment.domain + '/api/moviesByCategory/';
 
@@ -16,7 +17,7 @@ export class MoviesService extends StateSerivce<MovieModel> {
   getMoviesByCategory(catId: number) {
     return this.http
       .get<{
-        message: MovieModel[];
+        message: (MovieModel & { id: number })[];
         status: 'success' | 'failed';
       }>(this.apiMoviesByCategory + catId)
       .pipe(
@@ -25,4 +26,20 @@ export class MoviesService extends StateSerivce<MovieModel> {
         })
       );
   }
+
+  // override add(payload: Omit<MovieModel & { id: number }, 'id'>) {
+  //   const formData = new FormData();
+
+  //   formData.append('name', payload.name);
+  //   formData.append('image', payload?.image);
+  //   formData.append('description', payload.description);
+  //   formData.append('category_id', payload.category_id);
+
+  //   return this.http.post<{
+  //     message: MovieModel & { id: number };
+  //     status: 'success' | 'failed';
+  //   }>(this.api, formatDate).pipe(tap(res => {
+  //     const newState = addToState<MovieModel>()
+  //   }));
+  // }
 }
